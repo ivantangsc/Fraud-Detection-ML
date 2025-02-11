@@ -20,7 +20,7 @@ logging.getLogger().setLevel(logging.INFO)
 # %%
 
 pd.set_option('display.max_columns', None)
-df_bets = pd.read_parquet("df_bets_1years", engine = "pyarrow")
+df_bets = pd.read_parquet("df_bets_1year", engine = "pyarrow")
 new_bets = pd.read_parquet("df_bets_1week", engine = "pyarrow")
 new_bet_ids = new_bets['id'].copy()
 
