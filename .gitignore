@@ -1,0 +1,10 @@
+*.log
+1weekbets
+all_bets
+df_bets_1week
+df_bets_1year
+df_bets_3years
+exported_file.xlsx
+fraud_bets.csv
+new_bets_0.parquet
+test_sample

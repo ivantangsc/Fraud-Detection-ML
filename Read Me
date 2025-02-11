@@ -1,0 +1,25 @@
+Read Me
+
+With all the columns in getbetexternal, and also adding their PT. And then adding featuring engineering like bet frequency, 
+per day, per week, totallifetime bets, avg pnl, maybe active hours. for string columns like competition name and market name 
+I will do Frequency/count encoding, so marketname becomes their frequency value which helps with identifying which market is 
+uncommon/non liquid market. 
+
+Feature engineering
+
+| Engineered Features             |
+|---------------------------------|
+| Bet Frequency per day           |
+| Bet Frequency per week          |
+| Bet Frequency per month         |
+| Total lifetime Bets             |
+| Average pnl                     |
+| Frequency encoding competitions |
+
+Number of bets in market id + selection id
+Pregame = Average price, ingame = Average price in 10 mins
+
+
+Target variable
+
+Binary variable - Fraud
