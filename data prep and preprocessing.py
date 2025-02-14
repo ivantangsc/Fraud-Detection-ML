@@ -21,7 +21,11 @@ logging.getLogger().setLevel(logging.INFO)
 
 pd.set_option('display.max_columns', None)
 df_bets = pd.read_parquet("df_bets_1year", engine = "pyarrow")
+<<<<<<< HEAD
 new_bets = pd.read_parquet("df_bets_newday", engine = "pyarrow")
+=======
+new_bets = pd.read_parquet("df_bets_1week", engine = "pyarrow")
+>>>>>>> b8f9f22e68e488f599d78c1a023d3820dbbad451
 new_bet_ids = new_bets['id'].copy()
 
 df_bets = pd.concat([df_bets, new_bets], ignore_index=True)
