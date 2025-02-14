@@ -127,7 +127,7 @@ plt.show()
 
 from scipy.stats import pearsonr
 
-numerical_sample = test_sample.select_dtypes(exclude = ['object'])
+numerical_sample = test_sample.select_dtypes(exclude = ['object', "category"])
 
 correlation_matrix = numerical_sample.corr()
 fraud_correlations = correlation_matrix['fraud']

@@ -1,7 +1,7 @@
 *.log
-1weekbets
+newdaybets
 all_bets
-df_bets_1week
+df_bets_newday
 df_bets_1year
 df_bets_3years
 exported_file.xlsx

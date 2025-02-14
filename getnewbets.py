@@ -16,6 +16,7 @@ logging.getLogger().setLevel(logging.INFO)
 
 
 #%%
+
 APIKEY="dataminingEFkRF4rfJSKe23"
 USER_NAME="API_sub"
 PASSWORD="Passw0rd!"
@@ -63,7 +64,7 @@ start_of_yesterday = start_of_today - datetime.timedelta(days=0)
 end_checkpoint = int(time.mktime(start_of_yesterday.timetuple())) * 1000
 
 print(end_checkpoint)
-desired_date = datetime.datetime(2025, 2, 9, 20, 0)
+desired_date = datetime.datetime(2025, 2, 13, 20, 0)
 desired_checkpoint = int(time.mktime(desired_date.timetuple())) * 1000
 print(desired_checkpoint)
 day = 6
@@ -226,6 +227,6 @@ for col in cols_to_multiply:
 
 
 
-df_merged.to_parquet("df_bets_1week", engine='pyarrow') 
+df_merged.to_parquet("df_bets_newday", engine='pyarrow') 
 
 
