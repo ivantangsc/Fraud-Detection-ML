@@ -15,6 +15,7 @@ import logging
 logging.getLogger().setLevel(logging.INFO)
 
 
+
 #%%
 
 APIKEY="dataminingEFkRF4rfJSKe23"
@@ -60,11 +61,11 @@ token = response.json()["token"]
 
 current_time = datetime.datetime.now()
 start_of_today = datetime.datetime(current_time.year, current_time.month, current_time.day)
-start_of_yesterday = start_of_today - datetime.timedelta(days=0)
+start_of_yesterday = start_of_today - datetime.timedelta(days=1)
 end_checkpoint = int(time.mktime(start_of_yesterday.timetuple())) * 1000
 
 print(end_checkpoint)
-desired_date = datetime.datetime(2025, 2, 13, 20, 0)
+desired_date = datetime.datetime(2025, 2, 18, 20, 0)
 desired_checkpoint = int(time.mktime(desired_date.timetuple())) * 1000
 print(desired_checkpoint)
 day = 6

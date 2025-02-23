@@ -8,3 +8,6 @@ exported_file.xlsx
 fraud_bets.csv
 new_bets_0.parquet
 test_sample
+catboost_info
+fraud_counts.xlsx
+getnewbets.py
