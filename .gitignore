@@ -9,5 +9,7 @@ fraud_bets.csv
 new_bets_0.parquet
 test_sample
 catboost_info
-fraud_counts.xlsx
+fraud counts.xlsx
 getnewbets.py
+test_sample_new
+test_sample_old
