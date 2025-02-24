@@ -13,3 +13,5 @@ fraud counts.xlsx
 getnewbets.py
 test_sample_new
 test_sample_old
+fraud_betsids.py
+fraud_betsids.txt
