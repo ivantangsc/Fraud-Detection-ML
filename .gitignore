@@ -1,17 +1,17 @@
 *.log
+*.xlsx
+*.txt
 newdaybets
 all_bets
 df_bets_newday
 df_bets_1year
 df_bets_3years
-exported_file.xlsx
 fraud_bets.csv
 new_bets_0.parquet
 test_sample
 catboost_info
-fraud counts.xlsx
 getnewbets.py
 test_sample_new
 test_sample_old
-fraud_betsids.py
-fraud_betsids.txt
+fraud_betids.py
+catboost_fraud.py
