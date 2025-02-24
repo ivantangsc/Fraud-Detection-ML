@@ -79,6 +79,9 @@ df_bets["creation_date"] = df_bets["creation_date"].view('int64') // 10**6 # Bac
 df_bets = df_bets.sort_values(["customer_id", "creation_date"])
 df_bets["num_of_client_bets_before_bet"] = df_bets.groupby("customer_id").cumcount()
 df_bets["total_client_profit_before_bet"] = df_bets.groupby("customer_id")["virtual_profit"].cumsum()
+df_bets["total_client_stakes"] = df_bets.groupby("customer_id")["virtual_size_matched"].cumsum()
+
+df_bets["total_client_roi"] = df_bets["total_client_profit_before_bet"] / df_bets["total_client_stakes"]
 
 # Time since registration at the time of bet
 df_bets["registration_time"] = df_bets.groupby("customer_id")["creation_date"].transform("min")
@@ -169,11 +172,11 @@ df_older = df_bets[df_bets["creation_date"] < split_date]
 df_newer = df_bets[df_bets["creation_date"] >= split_date]
 
 
-
+df_newer
 # %% Fraud ids we have confirmed in the past. Will keep updating.
 
 with open("fraud_betids.txt", "r") as file:
-    fraud_betids = [line.strip() for line in file]
+    fraud_betids = [int(line.strip()) for line in file]
 
 fraud_betids
 # %%
@@ -182,8 +185,8 @@ fraud_betids
 fraud_bets = df_newer[df_newer["id"].isin(fraud_betids)].reset_index(drop = True)
 
 fraud_bets['fraud'] = 1
-
-
+fraud_bets
+# %%
 # CREATING LEGIT BET SAMPLE
 
 non_fraud_bets = df_newer[~df_newer['id'].isin(fraud_bets['id'])]
