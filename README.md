@@ -23,16 +23,3 @@ these fradulent bets efficiently and accurately.
 
 I am using a binary classfication model where I classfy fradulent bets as 1 and non fradulent bets as 0.
 Currently my model is still a beta model and I am only using XGBoost Classifier for now as I am still in the data engineering progress.
-
-
-Feature engineering
-
-| Engineered Features             |
-|---------------------------------|
-| Bet Frequency per day           |
-| Bet Frequency per week          |
-| Bet Frequency per month         |
-| Total lifetime Bets             |
-| Average pnl                     |
-| Frequency encoding competitions |
-
