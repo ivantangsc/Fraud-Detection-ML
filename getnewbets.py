@@ -36,16 +36,27 @@ print(desired_checkpoint)
 day = 6
 chunk_index = 0
 
+#               Get Login Token
 
 token = get_token(APIKEY_pro, USER_NAME_pro, PASSWORD_pro, referer, url_pro)
 
-# %%
+# %%            Get new daily bets
 
 get_new_daily_bets(token, APIKEY_pro, referer, url_bets, desired_checkpoint, end_checkpoint, day, chunk_index)
 
-# %%
+# %%            Modify all bet currencies to the same (HKD)
 
 df_merged = modify_bets_currencies()
+
+
+
+
+
+
+
+
+
+
 
 #%%                    ###############      FUNCTIONS
 
