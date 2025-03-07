@@ -44,11 +44,16 @@ token = get_token(APIKEY_pro, USER_NAME_pro, PASSWORD_pro, referer, url_pro)
 
 get_new_daily_bets(token, APIKEY_pro, referer, url_bets, desired_checkpoint, end_checkpoint, day, chunk_index)
 
-# %%            Modify all bet currencies to the same (HKD)
+# %%            Modify all bet currencies to the same (HKD) + New daily Bets ready for Modelling
 
 df_merged = modify_bets_currencies()
 
+# %%            Merging new daily bets with all bets each day, BUT after new bets are used in fraud model
 
+df_mergedyear = pd.read_parquet("data/df_bets_1year", engine = "pyarrow")
+df_mergedyear = pd.concat([df_mergedyear, df_merged], ignore_index = True) 
+
+df_mergedyear.to_parquet("data/df_bets_1year", engine = "pyarrow")
 
 
 
