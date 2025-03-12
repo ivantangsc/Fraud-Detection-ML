@@ -38,6 +38,22 @@ I am dividing my dataset to two parts, where first 1 year of data is used for th
 
 We are still constantly updating confirmed betids, and adding net daily bets into our total bets data.
 
+
+# Model Evaluation
+
+Model result on unseen validation set of 200 000 Non Fraud and 855 Fraud
+![alt text](validation_set_results.png)
+
+This is the result where class 0 is Non-Fraud and class 1 is Fraud. 
+Since there is a large mismatch between class 0 and class 1 data, we will mainly focus on the metric for class 0.
+
+Precison and recall on class 0 are relatively accurate in my opinion, increased from initially around 40% recall rate on class 0.
+
+As you can see precision rate is slightly lower than recall rate, but it makes sense because we figured that there are many hidden fraud bets in the non-fraud sample, due to historical detection limitation.
+
+Overall, I am pleased with the result currently with the features we can use, and look forward to improve it in the future with additional new data and potential stronger features.
+
+
 # Feature Selections
 
 There are currently around 58 different features I am still testing and comparing with, where most features I engineered myself.
