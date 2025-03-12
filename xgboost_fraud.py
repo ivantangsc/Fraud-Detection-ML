@@ -34,6 +34,7 @@ warnings.filterwarnings('ignore')
 cachedir = mkdtemp()
 from shap import summary_plot
 
+
 # %% FOCUS IS RECALL! HIGH TRUE POSITIVE, LOW FALSE NEGATIVES, FALSE POSITIVE IS OK.
 
 train_test_sample = pd.read_parquet('data/train_test_sample', engine = 'pyarrow')
@@ -112,13 +113,13 @@ def training_and_testing_model(train_test_sample):                #### Training 
 
 def grid_search(X_train, X_test, y_train, y_test):              #### GRID SEARCH 
     pipeline = Pipeline([
-        ('classifier', XGBClassifier(random_state = 42, use_label_encoder = False, eval_metric = 'logloss'))
+        ('classifier', XGBClassifier(random_state = 42, eval_metric = 'logloss'))
     ])
     param_grid = {
-        'classifier__n_estimators' : [1000, 1100],
+        'classifier__n_estimators' : [1300, 1400],
         'classifier__max_depth': [11, 12],
-        'classifier__learning_rate': [0.07, 0.08],
-        'classifier__subsample': [0.7, 0.8]
+        'classifier__learning_rate': [0.08, 0.09],
+        'classifier__subsample': [0.8,0.90]
     }
     grid_search = GridSearchCV(
         pipeline,
@@ -178,14 +179,13 @@ def validation_test(best_model, validation_data):               #### VALIDATION 
 
 def new_daily_bets_test(best_model):                                    #### REAL TEST
     last_week_bets = pd.read_parquet('data/newdaybets', engine = 'pyarrow')
-    customer_ids = last_week_bets[["customer_id", "price", "id", "settled_date", "creation_date", "matched_date", "market_start_time","last_modified", "virtual_size", "virtual_size_matched", "virtual_profit", "event_type_name"]]
+    customer_ids = last_week_bets[["customer_id", "price", "id", "settled_date", "creation_date", "matched_date", "market_start_time","last_modified", "virtual_size", "virtual_size_matched", "virtual_profit", "event_type_name", "currency_margin"]]
     last_week_bets = last_week_bets[
         ["num_of_client_bets_before_bet", "profit_ratio", 
         "price_ratio", "total_client_roi_before_bet", "state", 
         "side", "betplace_matchstart_timedifference","handicap", "in_play",
         "Currency", "num_of_selection_bets_before", "back_liquidity", "lay_liquidity",
         "bet_create_matched_timedifference", "total_matched_ratio", "daily_profit", "daily_stakes"]]
-
     predicted_labels = best_model.predict(last_week_bets)
     predicted_probs = best_model.predict_proba(last_week_bets)
     last_week_bets["predicted_labels"] = predicted_labels
@@ -194,7 +194,8 @@ def new_daily_bets_test(best_model):                                    #### REA
                                     columns=["prob_0", "prob_1"])
     last_week_bets = pd.concat([last_week_bets, predicted_probs_df], axis=1)
     result = last_week_bets.merge(customer_ids, left_index=True, right_index=True)
-    result = result[["id", "customer_id", "prob_1", "daily_profit", "event_type_name", "creation_date", "matched_date", "market_start_time", "last_modified", "price", 
+    result["expected_company_saved_cost"] = result["daily_profit"] * result["currency_margin"]
+    result = result[["id", "customer_id", "prob_1", "daily_profit", "currency_margin", "expected_company_saved_cost","event_type_name", "creation_date", "matched_date", "market_start_time", "last_modified", "price", 
                     "side", "virtual_size", "virtual_size_matched", "virtual_profit", "total_client_roi_before_bet", 
                     "num_of_selection_bets_before", "num_of_client_bets_before_bet", "price_ratio",  "profit_ratio"]]
     result = result[result["prob_1"] >= 0.5]
@@ -202,7 +203,8 @@ def new_daily_bets_test(best_model):                                    #### REA
     result["matched_date"] = pd.to_datetime(result["matched_date"], unit = "ms")
     result["market_start_time"] = pd.to_datetime(result["market_start_time"], unit = "ms")
     result["last_modified"] = pd.to_datetime(result["last_modified"], unit = "ms")
-    result = result.sort_values(by = ["customer_id","prob_1"], ascending=False)
+    result = result.sort_values(by = ["daily_profit", "customer_id","prob_1"], ascending=False)
+    result = result[result["daily_profit"] >= 500]
     result.to_csv("data/fraud_bets.csv", index=False)
     result
     return result

@@ -29,7 +29,7 @@ current_time = datetime.datetime.now()
 start_of_today = datetime.datetime(current_time.year, current_time.month, current_time.day)
 start_of_yesterday = start_of_today - datetime.timedelta(days=0)
 end_checkpoint = int(time.mktime(start_of_yesterday.timetuple())) * 1000
-desired_date = datetime.datetime(2025, 3, 5, 20, 0)
+desired_date = datetime.datetime(2025, 3, 11, 20, 0)
 desired_checkpoint = int(time.mktime(desired_date.timetuple())) * 1000
 print(end_checkpoint)
 print(desired_checkpoint)
@@ -51,11 +51,13 @@ df_merged = modify_bets_currencies()
 # %%            Merging new daily bets with all bets each day, BUT after new bets are used in fraud model
 
 df_mergedyear = pd.read_parquet("data/df_bets_1year", engine = "pyarrow")
+df_mergedyear.sort_values(by = "creation_date", ascending = False)
+
+#%%
+
 df_mergedyear = pd.concat([df_mergedyear, df_merged], ignore_index = True) 
 
 df_mergedyear.to_parquet("data/df_bets_1year", engine = "pyarrow")
-
-
 
 
 

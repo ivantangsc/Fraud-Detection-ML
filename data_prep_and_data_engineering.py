@@ -16,6 +16,7 @@ logging.getLogger().setLevel(logging.INFO)
 pd.set_option('display.max_columns', None)
 
 
+
 #%%                                             DATA LOADING
 
 starttime = time.time()
@@ -70,6 +71,9 @@ fraud_betids, remove_periods = get_fraud_betids()
 validation_data, train_test_sample = data_sampling (df_bets, fraud_betids, remove_periods)
 train_test_sample.to_parquet('data/train_test_sample', engine = 'pyarrow')
 validation_data.to_parquet('data/validation_data', engine = 'pyarrow')
+
+#%%
+validation_data
 
 # %%    ################################################################    Data Engineering
 
@@ -184,7 +188,7 @@ def data_sampling (df_bets, fraud_betids, remove_periods):
     non_fraud_bets = non_fraud_bets.copy()  
     non_fraud_bets['year_month'] = non_fraud_bets['matched_date'].dt.to_period('M')
     non_fraud_bets = non_fraud_bets[~non_fraud_bets['year_month'].isin(remove_periods)]
-    non_fraud_sample = non_fraud_bets.sample(n = 200000, random_state = 100)
+    non_fraud_sample = non_fraud_bets.sample(n = 200000, random_state = 42)
     non_fraud_sample['fraud'] = 0
     validation_data = pd.concat([fraud_bets, non_fraud_sample], ignore_index= True)
     fraud_bets = df_older[df_older["id"].isin(fraud_betids)].reset_index(drop = True)
@@ -193,7 +197,7 @@ def data_sampling (df_bets, fraud_betids, remove_periods):
     non_fraud_bets = non_fraud_bets.copy()  # Create an explicit copy
     non_fraud_bets['year_month'] = non_fraud_bets['matched_date'].dt.to_period('M')
     non_fraud_bets = non_fraud_bets[~non_fraud_bets['year_month'].isin(remove_periods)]
-    non_fraud_sample = non_fraud_bets.sample(n = 200000, random_state = 30)
+    non_fraud_sample = non_fraud_bets.sample(n = 200000, random_state = 42)
     non_fraud_sample['fraud'] = 0
     train_test_sample = pd.concat([fraud_bets, non_fraud_sample], ignore_index= True)
     return validation_data, train_test_sample
