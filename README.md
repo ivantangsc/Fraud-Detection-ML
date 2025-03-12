@@ -9,25 +9,25 @@ and they are able to set their own price as a bookmaker with a few differences. 
 This created a new way of betting and entertainment for the customers, and bet exchange operators generate revenue by 
 charging a small commission on winning bets.
 
-The problem comes in now, like other finacial transactions, we are seeing increasingly more fradulent bets placed in the
-betting exchange by betting against themself, to achieve fund passing, and some trying to make profits. 
+The problem comes in now, like other financial transactions, we are seeing increasingly more fraudulent bets placed in the
+betting exchange by betting against themselves, to achieve fund passing, and some trying to make profits. 
 See more at https://arbusers.com/fund-passing-at-betfair-t6198/
 
-Bookmaker companies have been trying to catch fraudulent bets mannually for years, however it is highly insufficient and prone to error,
-and these fradulent bets clients are likely to be using bots to achieve their purpose.
+Bookmaker companies have been trying to catch fraudulent bets manually for years, however it is highly insufficient and prone to error,
+and these fraudulent bets clients are likely to be using bots to achieve their purpose.
 
 My job for the company and my first real world machine learning problem is to build a working machine learning model to detect
-these fradulent bets efficiently and accurately.
+these fraudulent bets efficiently and accurately.
 
 # Data Science problem and my approach
 
-I am using a binary classfication model where I classfy fradulent bets as 1 and non fradulent bets as 0.
+I am using a binary classification model where I classify fraudulent bets as 1 and non fraudulent bets as 0.
 Currently my model is still a beta model and I am only using XGBoost Classifier for now as I am still in the data engineering progress.
 
 # Data collection
 
-I have 3 years of bet data from the betting exchange, which is around 70 million rows of bets. As the company has been mannually finding fraudulent bets, we have around 20000 confirmed
-fradulent bets for me to use in my training and test model.
+I have 3 years of bet data from the betting exchange, which is around 70 million rows of bets. As the company has been manually finding fraudulent bets, we have around 20000 confirmed
+fraudulent bets for me to use in my training and test model.
 
 I am only using past 1 year and 4 months of bets for now, because there are more updated features. 
 To remove noise, I have decided only use winning bets to train my model, which will make the ROI comparison between fraud bet accounts more obvious.
@@ -51,7 +51,7 @@ Precison and recall on class 0 are relatively accurate in my opinion, increased 
 
 As you can see precision rate is slightly lower than recall rate, but it makes sense because we figured that there are many hidden fraud bets in the non-fraud sample, due to historical detection limitation.
 
-Overall, I am pleased with the result currently with the features we can use, and look forward to improve it in the future with additional new data and potential stronger features.
+Overall, I am pleased with the result currently with the features we can use, and am looking forward to improving it in the future with additional new data and potential stronger features.
 
 
 # Feature Selections
