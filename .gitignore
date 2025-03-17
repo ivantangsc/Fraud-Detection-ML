@@ -2,3 +2,4 @@ data/
 fraud_betids.py
 eda.py
 .DS_Store
+__pycache__
